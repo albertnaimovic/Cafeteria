@@ -59,12 +59,17 @@ def get_food_menu():
             )
             time.sleep(1.5)
             continue
+        break
+    get_dish_menu(selected_item)
 
+
+def get_dish_menu(selected_item):
+    while True:
         os.system("cls")
         print(f"\n--{selected_item[0].capitalize()}--\n")
         food_list = session.query(FoodMenu).filter_by(category=selected_item[0]).all()
         counter = 1
-        print("       |DISH|                     |PRICE|")
+        print(f"{'|DISH|':>12}{'|PRICE|':>29}")
         for x in food_list:
             # print(f"{counter}. {x.name} {x.price}")
             print(f"{counter}. {x.name:<32}{x.price:>3} €")
