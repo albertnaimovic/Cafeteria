@@ -52,14 +52,22 @@ def get_food_menu():
 
         try:
             selection = int(input("\nSelect category: ")) - 1
-            values_list = list(categories)
-            selected_item = values_list[selection]
-            print(selected_item[0].capitalize())
+            selected_item = categories[selection]
         except Exception:
             print(
                 "\nPlease enter number from list provided without any symbols and spaces."
             )
-            time.sleep(2)
+            time.sleep(1.5)
             continue
+
+        os.system("cls")
+        print(f"\n--{selected_item[0].capitalize()}--\n")
+        food_list = session.query(FoodMenu).filter_by(category=selected_item[0]).all()
+        counter = 1
+        print("       |DISH|                     |PRICE|")
+        for x in food_list:
+            # print(f"{counter}. {x.name} {x.price}")
+            print(f"{counter}. {x.name:<32}{x.price:>3} €")
+            counter += 1
         input()
         break
